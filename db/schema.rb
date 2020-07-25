@@ -17,8 +17,10 @@ ActiveRecord::Schema.define(version: 2020_07_25_052613) do
 
   create_table "item_categories", force: :cascade do |t|
     t.string "name"
+    t.bigint "workspace_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["workspace_id"], name: "index_item_categories_on_workspace_id"
   end
 
   create_table "item_stat_categories", force: :cascade do |t|
@@ -43,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_07_25_052613) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "item_categories", "workspaces"
   add_foreign_key "item_stat_categories", "item_categories"
   add_foreign_key "item_stat_categories", "item_stats"
   add_foreign_key "item_stats", "workspaces"
