@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_25_052034) do
+ActiveRecord::Schema.define(version: 2020_07_25_052613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_07_25_052034) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "item_stat_categories", force: :cascade do |t|
+    t.bigint "item_category_id", null: false
+    t.bigint "item_stat_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_category_id"], name: "index_item_stat_categories_on_item_category_id"
+    t.index ["item_stat_id"], name: "index_item_stat_categories_on_item_stat_id"
   end
 
   create_table "item_stats", force: :cascade do |t|
@@ -34,5 +43,7 @@ ActiveRecord::Schema.define(version: 2020_07_25_052034) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "item_stat_categories", "item_categories"
+  add_foreign_key "item_stat_categories", "item_stats"
   add_foreign_key "item_stats", "workspaces"
 end
