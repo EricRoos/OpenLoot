@@ -3,11 +3,15 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :items, [Types::ItemType], null: false do
+      argument :workspace_id, ID, required: true, default_value: false
+      argument :name, String, required: false, default_value: false
+    end
+
+    def items(workspace_id:, name:)
+      w = Workspace.find(workspace_id).items
+      w = w.where(name: name) if name.present?
+      w
     end
   end
 end
