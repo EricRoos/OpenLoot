@@ -2,6 +2,7 @@ module Mutations
   class ModifyWorkspace < BaseMutation
     # TODO: define return fields
     field :workspace, Types::WorkspaceType, null: false
+    field :errors, [String], null: false
 
 
     # TODO: define arguments
@@ -14,7 +15,7 @@ module Mutations
       workspace.update_attributes({
         item_stats_attributes: item_stats.as_json
       })
-      { workspace: workspace }
+      { workspace: workspace, errors: workspace.errors.full_messages  }
     end
 
   end
