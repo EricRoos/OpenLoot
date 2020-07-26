@@ -1,10 +1,10 @@
 module Types
-  class ItemType < Types::BaseObject
+  class StatRangeType < Types::BaseObject
     field :id, ID, null: false
-    field :name, String, null: true
-    field :workspace_id, Integer, null: false
+    field :min, Integer, null: false
+    field :max, Integer, null: false
+    field :item_stat, Types::ItemStatType, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :stat_ranges, [Types::StatRangeType], null: false
   end
 end

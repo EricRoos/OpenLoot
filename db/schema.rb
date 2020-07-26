@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_205509) do
+ActiveRecord::Schema.define(version: 2020_07_26_213303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,17 @@ ActiveRecord::Schema.define(version: 2020_07_26_205509) do
     t.index ["workspace_id"], name: "index_items_on_workspace_id"
   end
 
+  create_table "stat_ranges", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "item_stat_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "min", default: 0
+    t.integer "max", default: 0
+    t.index ["item_id"], name: "index_stat_ranges_on_item_id"
+    t.index ["item_stat_id"], name: "index_stat_ranges_on_item_stat_id"
+  end
+
   create_table "workspaces", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -58,4 +69,6 @@ ActiveRecord::Schema.define(version: 2020_07_26_205509) do
   add_foreign_key "item_stat_categories", "item_stats"
   add_foreign_key "item_stats", "workspaces"
   add_foreign_key "items", "workspaces"
+  add_foreign_key "stat_ranges", "item_stats"
+  add_foreign_key "stat_ranges", "items"
 end
