@@ -13,7 +13,7 @@ RSpec.describe Workspace, type: :model do
     let(:item_stats) {[]}
 
     before do
-      workspace.update_attributes(update_payload)
+      workspace.update(update_payload)
       workspace.reload
     end
 

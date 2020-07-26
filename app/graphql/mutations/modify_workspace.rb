@@ -12,7 +12,7 @@ module Mutations
     # TODO: define resolve method
     def resolve(workspace_id:, item_stats:)
       workspace = Workspace.find(workspace_id)
-      workspace.update_attributes({
+      workspace.update({
         item_stats_attributes: item_stats.as_json
       })
       { workspace: workspace, errors: workspace.errors.full_messages  }
